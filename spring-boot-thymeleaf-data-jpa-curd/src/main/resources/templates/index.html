@@ -1,118 +1,168 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Employee Example</title>
+<title>EMS</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#autoclosable-btn-success').delay(3000).fadeOut( "slow", function() {
+		$('#autoclosable-btn-success').prop("disabled", false);
+	});
+	$('#autoclosable-btn-warning').delay(3000).fadeOut( "slow", function() {
+		$('#autoclosable-btn-warning').prop("disabled", false);
+	});
+	
+});
+</script>	
 </head>
-
 <body>
+	<div id="content">
+		<nav
+			class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+			<h1 class="h3 mb-2 text-gray-800">Employee Management System</h1>
+		</nav>
+		<!-- End of Topbar -->
+		<div class="container-fluid">
+			<div class="container">
+				<div class="card o-hidden border-0 shadow-lg my-5">
+					<div class="card-body p-0">
+						<!-- Nested Row within Card Body -->
+						<div class="row">
 
-	<div class="container">
-		<form class="form-horizontal" th:action="@{/save}"
-			th:object="${employeeForm}" method="POST">
-			<fieldset>
-				<div th:if="${success != null}">
-					<div class="alert alert-success">
-						<strong th:text="${success}"></strong>
+							<div class="col-lg-12">
+								<div class="p-5">
+									<div class="text-center">
+										<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+									</div>
+									<form class="form-horizontal" th:action="@{/save}"
+										th:object="${employeeForm}" method="POST">
+										<fieldset>
+											<div th:if="${success != null}">
+												<div id="autoclosable-btn-success" class="alert alert-success">
+													<strong th:text="${success}"></strong>
+												</div>
+											</div>
+											<div th:if="${error != null}">
+												<div id="autoclosable-btn-danger" class="alert alert-danger">
+													<strong th:text="${error}"></strong>
+												</div>
+											</div>
+											<!-- Form Name -->
+											<legend>Form Name</legend>
+											<input type="hidden" th:field="*{id}">
+											<!-- Text input-->
+											<div class="form-group">
+												<label class="col-md-4 control-label" for="firstName">Enter
+													First Name</label>
+												<div class="col-md-4">
+													<input id="firstName" th:field="*{firstName}" type="text"
+														placeholder="Rakesh" class="form-control input-md">
+													<span th:if="${#fields.hasErrors('firstName')}"
+														th:errors="*{firstName}" class="text-danger"></span>
+												</div>
+											</div>
+
+											<!-- Text input-->
+											<div class="form-group">
+												<label class="col-md-4 control-label" for="lastName">Enter
+													Last Name</label>
+												<div class="col-md-4">
+													<input id="lastName" th:field="*{lastName}" type="text"
+														placeholder="Sharma" class="form-control input-md">
+													<span th:if="${#fields.hasErrors('lastName')}"
+														th:errors="*{lastName}" class="text-danger"></span>
+												</div>
+											</div>
+
+											<!-- Text input-->
+											<div class="form-group">
+												<label class="col-md-4 control-label" for="email">Enter
+													Email</label>
+												<div class="col-md-4">
+													<input id="email" th:field="*{email}" type="text"
+														placeholder="xyz@gmail.com" class="form-control input-md">
+													<span th:if="${#fields.hasErrors('email')}"
+														th:errors="*{email}" class="text-danger"></span>
+												</div>
+											</div>
+
+											<!-- Text input-->
+											<div class="form-group">
+												<label class="col-md-4 control-label" for="salary">Enter
+													Salary</label>
+												<div class="col-md-4">
+													<input id="salary" th:field="*{salary}" type="text"
+														placeholder="35000" class="form-control input-md">
+													<span th:if="${#fields.hasErrors('salary')}"
+														th:errors="*{salary}" class="text-danger"></span>
+												</div>
+											</div>
+
+											<!-- Button -->
+											<div class="form-group">
+												<label class="col-md-4 control-label" for=""></label>
+												<div class="col-md-4">
+													<button class="btn btn-success">Save</button>
+												</div>
+											</div>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div th:if="${error != null}">
-					<div class="alert alert-danger">
-						<strong th:text="${error}"></strong>
+
+			</div>
+
+			<!-- DataTales Example -->
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Employee
+						Information DataTables</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered" id="dataTable" width="100%"
+							cellspacing="0">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
+									<th>Salary</th>
+									<th>Edit</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="employee : ${list}">
+									<td th:text=${employee.id}></td>
+									<td th:text=${employee.firstName}></td>
+									<td th:text=${employee.lastName}></td>
+									<td th:text=${employee.email}></td>
+									<td th:text=${employee.salary}></td>
+									<td><a th:href="@{/{id}(id=${employee.id})}">Edit</a></td>
+									<td><a th:href="@{delete/{id}(id=${employee.id})}">Delete</a></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
-				<!-- Form Name -->
-				<legend>Form Name</legend>
-				<input type="hidden" th:field="*{id}">
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="firstName">Enter
-						First Name</label>
-					<div class="col-md-4">
-						<input id="firstName" th:field="*{firstName}" type="text"
-							placeholder="Enter First Name" class="form-control input-md">
-						<span th:if="${#fields.hasErrors('firstName')}"
-							th:errors="*{firstName}" class="text-danger"></span>
-					</div>
-				</div>
+			</div>
 
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="lastName">Enter
-						Last Name</label>
-					<div class="col-md-4">
-						<input id="lastName" th:field="*{lastName}" type="text"
-							placeholder="Enter Last Name" class="form-control input-md">
-						<span th:if="${#fields.hasErrors('lastName')}"
-							th:errors="*{lastName}" class="text-danger"></span>
-					</div>
-				</div>
+		</div>
 
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="email">Enter
-						Email</label>
-					<div class="col-md-4">
-						<input id="email" th:field="*{email}" type="text"
-							placeholder="Enter Email" class="form-control input-md">
-						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
-					</div>
-				</div>
-
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="salary">Enter
-						Salary</label>
-					<div class="col-md-4">
-						<input id="salary" th:field="*{salary}" type="text"
-							placeholder="Enter Salary" class="form-control input-md">
-						<span th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="text-danger"></span>
-					</div>
-				</div>
-
-				<!-- Button -->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for=""></label>
-					<div class="col-md-4">
-						<button class="btn btn-success">Save</button>
-					</div>
-				</div>
-
-			</fieldset>
-		</form>
-		<hr />
-		<h2>Employee Table</h2>
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-					<th>Salary</th>
-					<th>Edit</th>
-					<th>Delete</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="employee : ${list}">
-					<td th:text=${employee.id}></td>
-					<td th:text=${employee.firstName}></td>
-					<td th:text=${employee.lastName}></td>
-					<td th:text=${employee.email}></td>
-					<td th:text=${employee.salary}></td>
-					<td><a th:href="@{/{id}(id=${employee.id})}">Edit</a></td>
-					<td><a th:href="@{delete/{id}(id=${employee.id})}">Delete</a></td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
-
 </body>
 </html>
