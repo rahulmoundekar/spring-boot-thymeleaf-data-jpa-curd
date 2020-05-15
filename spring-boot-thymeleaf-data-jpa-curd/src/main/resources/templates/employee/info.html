@@ -1,0 +1,121 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/main}">
+
+<div class="container-fluid" layout:fragment="body">
+	<div class="card o-hidden border-0 shadow-lg my-5">
+		<div class="card-body p-0">
+			<!-- Nested Row within Card Body -->
+			<div class="row">
+				<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+				<div class="col-lg-7">
+					<div class="p-5">
+						<div class="text-center">
+							<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+						</div>
+						<div th:if="${success != null}">
+							<div id="autoclosable-btn-success" class="alert alert-success">
+								<strong th:text="${success}"></strong>
+							</div>
+						</div>
+						<div th:if="${error != null}">
+							<div id="autoclosable-btn-danger" class="alert alert-danger">
+								<strong th:text="${error}"></strong>
+							</div>
+						</div>
+						<form class="user" th:action="@{/save}"
+							th:object="${employeeForm}" method="POST">
+							<input type="hidden" th:field="*{id}">
+							<div class="form-group row">
+								<div class="col-sm-6 mb-3 mb-sm-0">
+									<input type="text" class="form-control form-control-user"
+										id="exampleFirstName" placeholder="First Name"
+										th:field="*{firstName}"> <span
+										th:if="${#fields.hasErrors('firstName')}"
+										th:errors="*{firstName}" class="text-danger"></span>
+								</div>
+								<div class="col-sm-6">
+									<input type="text" class="form-control form-control-user"
+										id="exampleLastName" placeholder="Last Name"
+										th:field="*{lastName}"> <span
+										th:if="${#fields.hasErrors('lastName')}"
+										th:errors="*{lastName}" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="email" class="form-control form-control-user"
+									id="exampleInputEmail" placeholder="Email Address"
+									th:field="*{email}"> <span
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+									class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control form-control-user"
+									id="exampleInputPassword" placeholder="35000"
+									th:field="*{salary}"> <span
+									th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"
+									class="text-danger"></span>
+							</div>
+							<button class="btn btn-primary btn-user btn-block">Register
+								Account</button>
+						</form>
+						<hr>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">EMS</h1>
+	</div>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">Employee
+				Information</h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%"
+					cellspacing="0">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th>Salary</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>Id</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th>Salary</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						<tr th:each="employee : ${list}">
+							<td th:text=${employee.id}></td>
+							<td th:text=${employee.firstName}></td>
+							<td th:text=${employee.lastName}></td>
+							<td th:text=${employee.email}></td>
+							<td th:text=${employee.salary}></td>
+							<td><a th:href="@{/{id}(id=${employee.id})}">Edit</a></td>
+							<td><a th:href="@{delete/{id}(id=${employee.id})}">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</html>
+

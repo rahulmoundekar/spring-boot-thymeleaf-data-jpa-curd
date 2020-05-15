@@ -33,7 +33,7 @@ public class EmployeeController {
 		if (id != null)
 			employee = employeeRepository.findById(id).get();
 		model.addAttribute("employeeForm", employee);
-		return "index";
+		return "employee//info";
 	}
 
 	@PostMapping(value = "save")
@@ -42,7 +42,7 @@ public class EmployeeController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("employeeForm", employee);
-			return "index";
+			return "employee//info";
 		}
 		employee = employeeRepository.save(employee);
 		if (employee != null)
